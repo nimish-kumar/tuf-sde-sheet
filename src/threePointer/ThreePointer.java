@@ -11,7 +11,7 @@ import java.util.Arrays;
 /// 0 0 0 0 1 1 1 1 1 [2 0 1 0 0 1 0 1] 2 2 2 2 2
 ///         L         M               H
 // Logic:
-// If mid -> 0, swap with low and increase idx of low by 1
+// If mid -> 0, swap with low and increase idx of low and mid by 1
 // If mid -> 1, inc mid by 1
 // If mid -> 2, swap with hi and decrease idx of hi by 1
 // if mid == high, then stop but for safety let's stop it at mid > high
@@ -31,18 +31,17 @@ public class ThreePointer {
                 arr.set(low, temp);
 
                 low = low + 1;
+                // it can only get swapped with a 1
+                // since on left of mid are only 1s and
+                // low is on initial 1
 
-                // make sure low is on left of mid
-                // else increase mid by 1 since anyways
-                // portion on left low has been already
-                // sorted
+                // And since swapping, 0 0 1 1 0
+                //                         ^   ^
 
-                // This is an edge case and this can happen
-                // for array which is in decreasing order
-                // [2 2 2 1 1 0 0 0]
-                if (low > mid) {
-                    mid = mid + 1;
-                }
+                // it will result in, 0 0 0 1 1 [Unsorted grabage]
+                //                          ^   ^
+                // So both low and mid needs to be increaed by 1
+                mid = mid + 1;
             }
             if (arr.get(mid) == 1) {
                 mid = mid + 1;
