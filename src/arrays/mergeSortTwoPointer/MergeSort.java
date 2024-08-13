@@ -17,13 +17,14 @@ public class MergeSort {
         mergeSort(left);
         mergeSort(right);
 
+        // length: 3 1 2
         merge(list, left, right);
     }
 
     private static void merge(ArrayList<Integer> list, ArrayList<Integer> left, ArrayList<Integer> right) {
         int i = 0, j = 0, k = 0;
-
         while (i < left.size() && j < right.size()) {
+
             if (left.get(i) <= right.get(j)) {
                 list.set(k, left.get(i));
                 i++;
@@ -41,11 +42,16 @@ public class MergeSort {
         while (j < right.size()) {
             list.set(k++, right.get(j++));
         }
+
+        // System.out.println("\n---");
     }
 
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(4, 5, 1, 2, 6, 8, 7, 0));
         mergeSort(arr);
+        System.out.println();
         arr.forEach(x -> System.out.println(x + " "));
+        System.out.println();
+
     }
 }
