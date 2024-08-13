@@ -4,45 +4,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MergeTwoSortedArrays {
+    // 2 pointer
     public static ArrayList<Integer> mergeSortedArrays(
             ArrayList<Integer> firstArr,
             ArrayList<Integer> secondArr) {
 
-        int firstIndex = 0;
-        int secondIndex = 0;
-        int smallestIndex = Integer.min(firstArr.size(), secondArr.size()) - 1;
-
+        int firstPtr = 0;
+        int secondPtr = 0;
         ArrayList<Integer> result = new ArrayList<>();
 
-        while (firstIndex <= smallestIndex || secondIndex <= smallestIndex) {
-            if (firstArr.get(firstIndex) <= secondArr.get(secondIndex)) {
-                result.add(firstArr.get(firstIndex));
-                firstIndex++;
+        while (firstPtr < firstArr.size() && secondPtr < secondArr.size()) {
+            if (firstArr.get(firstPtr) < secondArr.get(secondPtr)) {
+                result.add(firstArr.get(firstPtr));
+                firstPtr++;
+            } else {
+                result.add(secondArr.get(secondPtr));
+                secondPtr++;
             }
-            if (firstArr.get(firstIndex) > secondArr.get(secondIndex)) {
-                result.add(secondArr.get(secondIndex));
-                secondIndex++;
-            }
-
-            // if (firstIndex < firstArr.size() && secondIndex < secondArr.size()
-            //         && firstArr.get(firstIndex) == secondArr.get(secondIndex)) {
-            //     result.add(firstArr.get(firstIndex));
-            //     result.add(secondArr.get(secondIndex));
-            //     firstIndex++;
-            //     secondIndex++;
-            // }
-
         }
 
-        if (firstArr.size() == secondArr.size()) {
-            return result;
+        while (firstPtr < firstArr.size()) {
+            result.add(firstArr.get(firstPtr));
+            firstPtr++;
         }
-        if (smallestIndex == secondArr.size() - 1) {
-            result.addAll(firstArr.subList(smallestIndex + 1, firstArr.size()));
-        } else {
-            result.addAll(secondArr.subList(smallestIndex + 1, secondArr.size()));
 
+        while (secondPtr < secondArr.size()) {
+            result.add(secondArr.get(secondPtr));
+            secondPtr++;
         }
+
         return result;
     }
 
